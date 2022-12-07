@@ -23,3 +23,4 @@ public class VariableExample4 {
 		// 실수 -> 정수 변환시 소수점 버림 처리 (데이터 손실)
 		
 	}
+}

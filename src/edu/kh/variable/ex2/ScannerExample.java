@@ -23,12 +23,8 @@ public class ScannerExample {
 		
 		System.out.print("입력2: ");
 		String input4 = sc.nextLine();
-		
 		System.out.println(input4); 
 		
-		
-		
-
 	}
 	
 }

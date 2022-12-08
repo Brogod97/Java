@@ -39,9 +39,13 @@ public class ConditionPractice {
 		int sum = kor + math + eng;
 		double avg = sum / 3;
 		
-		if((kor >= 40) && (eng >= 40) && (math >= 40) && (avg > 60)) {
-			System.out.printf("국어 : %d\n수학 : %d\n영어 : %d\n합계 : %d\n평균 : %.1f\n",
-								kor, math, eng, sum, avg);
+		if((kor >= 40) && (eng >= 40) && (math >= 40) && (avg >= 60)) {
+			System.out.printf("국어 : %d\n"
+							+ "수학 : %d\n"
+							+ "영어 : %d\n"
+							+ "합계 : %d\n"
+							+ "평균 : %.1f\n"
+							, kor, math, eng, sum, avg);
 			System.out.println("축하합니다, 합격입니다!");
 		}else {
 			System.out.println("불합격입니다.");
@@ -54,16 +58,16 @@ public class ConditionPractice {
 		System.out.print("1~12 사이의 정수 입력 : ");
 		int month = sc.nextInt();
 		
+		String result;
+		
 		switch(month) {
-			case 2, 4, 6, 9, 11: 
-				System.out.println(month + "월은 30일까지 있습니다.");
-				break;		
-			case 1,3,5,7,8,10,12:
-				System.out.println(month + "월은 31일까지 있습니다.");
-				break;	
-			default: 
-				System.out.println(month + "월은 잘못 입력된 달입니다.");
+		case 2: result = month + "월은 28일까지 있습니다."; break;
+		case 4, 6, 9, 11: result = month + "월은 30일까지 있습니다."; break;
+		case 1, 3, 5, 7, 8, 10, 12: result = month + "월은 31일까지 있습니다."; break;	
+		default: result = month + "월은 잘못 입력된 달입니다.";
 		}
+		
+		System.out.println(result);
 	}
 
 	public void practice4() {
@@ -76,6 +80,7 @@ public class ConditionPractice {
 		double weight = sc.nextDouble();
 		
 		double bmi = weight / (height * height);
+		System.out.println("BMI 지수 : " + bmi);
 		
 		String result;
 		
@@ -85,13 +90,49 @@ public class ConditionPractice {
 			result = "정상체중";
 		}else if(bmi < 25) {
 			result = "과체중";
-		}else if(bmi < 35) {
+		}else if(bmi < 30) {
 			result = "비만";
 		}else {
 			result = "고도 비만";
 		}
 		
-		System.out.println(bmi);
 		System.out.println(result);
+	}
+
+	public void practice5() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("중간 고사 점수 : ");
+		double midterm = sc.nextDouble() * 0.2;
+
+		System.out.print("기말 고사 점수 : ");
+		double finalExam = sc.nextDouble() * 0.3;
+		
+		System.out.print("과제 점수 : ");
+		double assignment = sc.nextDouble() * 0.3;
+		
+		System.out.print("출석 횟수 : ");
+		double attendance = sc.nextDouble();
+		
+		double sum = midterm + finalExam + assignment + attendance;
+		
+		System.out.println("================= 결과 =================");
+		
+		if(attendance < 20 * 0.7) {
+			System.out.println("Fail [출석 횟수 부족 (" + (int)attendance + "/20)]");
+		}else {
+			System.out.printf("중간 고사 점수(20) : %.1f\n"
+							+ "기말 고사 점수(30) : %.1f\n"
+							+ "과제 점수 	    (30) : %.1f\n"
+							+ "출석 점수 	    (20) : %.1f\n"
+							+ "총점 : %.1f\n"
+							, midterm, finalExam, assignment, attendance, sum);
+			
+			if(sum < 70) {
+				System.out.println("Fail [점수 미달]");
+			}else {
+				System.out.println("Pass");
+			}
+		}
 	}
 }

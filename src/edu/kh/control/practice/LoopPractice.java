@@ -143,7 +143,7 @@ public class LoopPractice {
 		int input = sc.nextInt();
 		
 		for(int i = 1; i <= input; i++) {
-			for(int space  = 0; space < (input - i); space++) {
+			for(int space  = 1; space <= (input - i); space++) {
 				System.out.print(" ");
 			}
 			
@@ -151,6 +151,24 @@ public class LoopPractice {
 				System.out.print("*");
 			}
 			
+			System.out.println();
+		}
+	}
+	
+	public void practice9T(){
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수 입력 : ");
+		int input = sc.nextInt();
+		
+		for(int row = 1; row <= input; row++) {
+			for(int col = 1; col <= input; col++) {
+				if(col <= input - row) {
+					System.out.print(" ");
+				}else {
+					System.out.print("*");
+				}
+			}
 			System.out.println();
 		}
 	}
@@ -199,6 +217,38 @@ public class LoopPractice {
 		}
 	}
 	
+	public void practice11T() {
+		/*
+			메소드 명 : public void practice11(){}
+			다음과 같은 실행 예제를 구현하세요.
+	
+			ex.
+			정수 입력 : 4
+ 			   *
+			  ***
+		     *****
+		    *******  << (input * 2) - 1
+		*/
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수 입력 : ");
+		int input = sc.nextInt();
+		
+		for(int row = 1; row <= input; row++) {
+			for(int col = 1; col <= input * 2 - 1;col++) {
+				// 마지막 줄의 별 갯수: input * 2 - 1
+				
+				if( input - row >= col || input + row <= col) {
+					System.out.print(" ");
+				}else {
+					System.out.print("*");
+				}
+			}
+			System.out.println();
+		}
+	}
+
 	public void practice12(){
 		Scanner sc = new Scanner(System.in);
 		
@@ -224,6 +274,27 @@ public class LoopPractice {
 		}
 	}
 	
+	public void practice12T(){
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("정수 입력 : ");
+		int input = sc.nextInt();
+		
+		for(int row = 1; row <= input; row++) {
+			for(int col = 1; col <= input; col++) {
+				// 첫번째 / 마지막줄 일때만 * 출력
+				// 입력한 인풋의 길이만큼 행열 길이 지정
+				
+				if(row == 1 || row == input || col == 1 || col == input) {
+					System.out.print("*");
+				}else {
+					System.out.print(" ");
+				}
+			}
+			System.out.println();
+		}
+	}
+	
 	public void practice13(){
 	    Scanner sc = new Scanner(System.in);
 		
@@ -243,4 +314,29 @@ public class LoopPractice {
 	    System.out.println();
 	    System.out.println("count : " + count);
 	  }
+	
+	public void practice13T(){
+		// 조건1) 2의 배수 또는 3의 배수인 경우 출력
+		// => 2나 3으로 나누었을 때 나머지값이 0인 경우
+		// 조건2) 2와 3의 공배수
+		// => 2로도 나누어떨어지고, 3으로도 나누어 떨어진다.
+		
+	    Scanner sc = new Scanner(System.in);
+		
+		  System.out.print("자연수 하나를 입력하세요 : ");
+		  int input = sc.nextInt();
+		  int count = 0;
+		  
+		  for(int i = 1; i <= input; i++) {
+			  if(i % 2 == 0 || i % 3 == 0) {
+				  System.out.print(i + " ");
+				  
+				  if(i % 2 == 0 && i % 3 == 0) {
+					  count++;
+				  }
+			  }
+		  }
+		  System.out.println("\ncount: " + count);
+		  
+	}
 }

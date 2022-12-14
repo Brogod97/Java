@@ -154,29 +154,37 @@ public class PracticeService {
 		}
 	}
 
-//	public void practice8(){
-//		
-//		Scanner sc = new Scanner(System.in);
-//
-//		System.out.print("정수 : ");
-//		int input = sc.nextInt();
-//		
-//		int[] arr = new int[input];
-//		
-//		if(input % 2 == 0 || input < 3) {
-//			System.out.println("다시 입력하세요");
-//		}else {
-////		배열의 중간까지는 1부터 1씩 증가하여 오름차순으로 값을 넣고,
-////		중간 이후부터 끝까지는 1씩 감소하여 내림차순으로 값을 넣어 출력하세요.
-//			for(int i = 0; i < arr.length; i++) {
-//				arr[i] = i + 1;
-//				if(i > input / 2) {
-//					arr[i] = ;
-//				}
-//			}
-//		}
-//		System.out.println(Arrays.toString(arr));
-//	}
+	public void practice8(){
+		Scanner sc = new Scanner(System.in);
+		
+		while(true) {
+			System.out.print("정수 : ");
+			int input = sc.nextInt();
+			
+			if(input % 2 == 0 || input < 3) {
+				System.out.println("다시 입력하세요");
+			}else {
+				int[] arr = new int[input];
+				
+				int num = 0;
+				
+				for(int i = 0; i < arr.length; i++) {
+					if(i <= arr.length / 2) {
+						arr[i] = ++num;
+					}else {
+						arr[i] = --num;
+					}
+					
+					if((i+1) == arr.length) {
+						System.out.print(arr[i]);
+					}else {
+						System.out.print(arr[i] + ", ");
+					}
+				}
+			}
+			break;
+		}
+	}
 	
 	public void practice9(){
 		
@@ -259,18 +267,78 @@ public class PracticeService {
 
 	public void practice13(){
 		Scanner sc = new Scanner(System.in);
+		
 		System.out.print("문자열 : ");
 		String input = sc.nextLine();
 		
-		char[] arr = new char[input.length()];
+		char[] chArr = new char[input.length()];
 		
-		
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = input.charAt(i);
+		for(int i = 0; i < chArr.length; i++) {
+			chArr[i] = input.charAt(i);
 		}
-		System.out.println(Arrays.toString(arr)); // 확인
+		
 		
 		System.out.print("문자열에 있는 문자 : ");
+		for(int i = 0; i < chArr.length; i++) {
+			boolean flag = true;
+			
+			for(int j = 0; j < i; j++) {
+				if(chArr[i] == chArr[j]) {
+					flag = false;
+					break;
+				}
+			}
+			
+			if(flag) {
+				if(i == 0) {
+					System.out.print(chArr[i]);
+				}else {
+					System.out.print(", " + chArr[i]);
+				}
+			}
+		}
+	}
+
+	public void practice14() {
+		Scanner sc = new Scanner(System.in);
 		
+		System.out.print("배열의 크기를 입력하세요 : ");
+		int size = sc.nextInt();
+		sc.nextLine();
+		
+		String[] arr = new String[size];
+		
+		for(int i = 0; i < arr.length; i++) {
+			System.out.print((i + 1) + "번째 문자열 : ");
+			arr[i] = sc.nextLine();
+		}
+		while (true) {
+			System.out.print("더 값을 입력하시겠습니까?(Y/N) : ");
+			char ch = sc.next().charAt(0);
+
+			if (ch == 'y' || ch == 'Y') {
+				System.out.print("더 입력하고 싶은 개수 : ");
+				int addSize = sc.nextInt();
+				sc.nextLine();
+
+				String[] newArr = new String[arr.length + addSize];
+
+				for (int i = 0; i < newArr.length; i++) {
+					if (i < arr.length) {
+						newArr[i] = arr[i];
+					} else {
+						System.out.print((i + 1) + "번째 문자열 : ");
+						newArr[i] = sc.nextLine();
+					}
+				}
+				arr = newArr;
+			} else if (ch == 'n' || ch == 'N') {
+				break;
+			} else {
+				System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.");
+			}
+		}
+		
+		System.out.println(Arrays.toString(arr));
 	}
 }

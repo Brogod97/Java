@@ -1,4 +1,4 @@
-package edu.kh.oop.mthod.medel.vo;
+package edu.kh.oop.method.member.vo;
 
 public class Member {
 	

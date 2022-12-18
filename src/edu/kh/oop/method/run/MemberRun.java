@@ -1,6 +1,6 @@
-package edu.kh.oop.mthod.run;
+package edu.kh.oop.method.run;
 
-import edu.kh.oop.mthod.medel.service.MemberService;
+import edu.kh.oop.method.member.service.MemberService;
 
 public class MemberRun {
 

@@ -42,19 +42,20 @@ public class MemberService {
 			case 2: System.out.println( login() ); break;
 			case 3: System.out.println( selectMember() ); break;
 			case 4: 
-				int result = updateMember();
+				
+				int result = updateMember(); // -1, 0, 1
 				
 				if(result == -1) {
-					System.out.println("로그인 해주시기 바랍니다");
-				}else if(result == 1) {
-					System.out.println("회원 정보 수정이 완료되었습니다.");
-				}else {
+					System.out.println("로그인 후 이용해주시기 바랍니다.");
+				}else if(result == 0) {
 					System.out.println("회원 정보 수정 실패 (비밀번호 불일치)");
+				}else {
+					System.out.println("회원 정보 수정이 완료되었습니다.");
 				}
-				
 				break;
-			case 5: break;
-			case 0: System.out.println("프로그램을 종료합니다."); break;
+				
+			case 5: searchRegion(); break;
+			case 0: System.out.println("\n프로그램을 종료합니다."); break;
 			default : System.out.println("\n잘못 입력하셨습니다."); 
 			}
 			
@@ -63,7 +64,7 @@ public class MemberService {
 	
 	// 회원가입 메서드
 	public String signUp() {
-		System.out.println("\n ======== 회원 가입 ========");
+		System.out.println("\n======== 회원 가입 ========");
 		
 		// 객체 배열 (memberArr)에 가입한 회원 정보를 저장할 예정
 		// -> 새로운 회원 정보를 저장할 공간이 있는지 확인하고
@@ -124,7 +125,7 @@ public class MemberService {
 	} 
 	
 	public String login() {
-		System.out.println("======== 로그인 ========");
+		System.out.println("\n======== 로그인 ========");
 		// 1) memberArr 배열 내 요소를 순서대로 접근하여 null이 아닌지 확인
 		System.out.print("아이디 : ");
 		String memberId = sc.next();
@@ -133,8 +134,7 @@ public class MemberService {
 		String memberPw = sc.next();
 		
 		for(int i = 0; i < memberArr.length; i++) {
-			if(memberArr[i] != null) {
-				// 회원정보가 있을 경우 
+			if(memberArr[i] != null) { // 회원정보가 있을 경우 
 				// 2) 회원정보(memberArr[i])의 아이디, 비밀번호와
 				// 입력받은 아이디, 비밀번호가 같은지 확인
 				
@@ -143,66 +143,137 @@ public class MemberService {
 					// 3) 로그인 회원 정보 객체(Member)를 참조하는 변수 loginMember에
 					// 	  현재 접근중인 memberArr[i]요소에 저장된 주소를 얕은 복사
 					loginMember = memberArr[i];
-					return loginMember.getMemberName() + "님 로그인 성공!";
+					
+					break; // 더 이상 같은 아이디, 비밀번호 없으므로 for문 종료
 				}
 			}
 		}
 		// 4) 로그인 성공/실패 여부에 따라 결과값을 반환
-		return "아이디 또는 비밀번호가 일치하지 않습니다.";
+		if(loginMember == null) { // 로그인 실패
+			
+			return "아이디 또는 비밀번호가 일치하지 않습니다.";
+			
+		}else { // 로그인 성공
+			
+			return loginMember.getMemberName() + "님 환영합니다.";
+			
+		}
+		
 	}
 
+	// 개인 과제 작성 ver
+//	public String selectMember() {
+//		System.out.println("\n======== 회원 정보 조회 ========");
+//		
+//		// 1) 로그인 여부 확인 -> 필드 loginMember가 참조하고 있는 객체가 있는지 확인
+//		if(loginMember == null) {
+//			return "로그인 후 이용해주시기 바랍니다.";
+//		}else {
+//		// 2) 로그인된 멤버일 경우 
+//		//	회원정보를 출력할 문자열을 만들어서 반환(return)
+//		//	(단, 비밀번호 제외)
+//			
+//			System.out.println("이름 : " + loginMember.getMemberName()
+//							+ "\n나이 : " + loginMember.getMemberAge()
+//							+ "\n지역 : " + loginMember.getRegion());
+//			
+//			return "회원 정보 출력 완료!";
+//		}
+//	}
+	
+	// selectMember 강사님 ver
 	public String selectMember() {
-		System.out.println("======== 회원 정보 조회 ========");
-		// 1) 로그인된 멤버인지 확인 후 아닐경우 "로그인 해주시기 바랍니다" 출력
+		System.out.println("\n======== 회원 정보 조회 ========");
+		
+		// 1) 로그인 여부 확인 -> 필드 loginMember가 참조하고 있는 객체가 있는지 확인
 		if(loginMember == null) {
-			return "로그인 해주시기 바랍니다";
-		}else {
-		// 2) 로그인된 멤버일 경우 해당 loginMember 인스턴스에서
-		//		getter를 이용해 정보 가져오기
-		// - 비밀번호의 경우 출력하지 않음
-		// -- 이름, 나이, 지역만 가져오기
-			
-			System.out.println("이름 : " + loginMember.getMemberName()
-							+ "\n나이 : " + loginMember.getMemberAge()
-							+ "\n지역 : " + loginMember.getRegion());
-			
-			return "회원 정보 출력 완료!";
+			return "로그인 후 이용해주시기 바랍니다.";
 		}
+		
+		// 2) 로그인된 멤버일 경우 
+		//	회원정보를 출력할 문자열을 만들어서 반환(return)
+		//	(단, 비밀번호 제외)
+		String str = "이름 : " + loginMember.getMemberName();
+		str += "\n아이디 : " + loginMember.getMemberId();
+		str += "\n나이 : " + loginMember.getMemberAge() + "세";
+		str += "\n지역 : " + loginMember.getRegion();
+		
+		return str;
 	}
 
 	public int updateMember() {
-		System.out.println("======== 회원 정보 수정 ========");
+		System.out.println("\n======== 회원 정보 수정 ========");
 		
-		// 1) 로그인 여부 체크
-		// 로그인 되지 않은 경우 -1 반환
+		// 1) 로그인 여부 판별
+		// 	  로그인 되어있지 않은 경우 -1 반환
 		if(loginMember == null) {
 			return -1;
+		}
+		
+		// 2) 수정할 정보 입력받은 후 저장 (이름, 나이, 지역)
+		System.out.print("수정할 이름 입력: ");
+		String inputName = sc.next();
+		
+		System.out.print("수정할 나이 입력: ");
+		int inputAge = sc.nextInt();
+		sc.nextLine(); // 입력 버퍼 정리
+					   // int 뒤 문자열을 입력받을 경우 무조건 넣기
+		
+		System.out.print("수정할 지역 입력: ");
+		String inputRegion = sc.next();
+		
+		// 3) 비밀번호를 입력받아
+		//    로그인한 회원의 비밀번호와 일치하는지 확인 -> 일치 할 경우 수정
+		System.out.print("현재 비밀번호를 입력해주세요 : ");
+		String inputPw = sc.next(); 
+
+		// 4) 비밀 번호가 일치하는 경우 
+		if(inputPw.equals(loginMember.getMemberPw())) {
+			//    이름, 나이, 지역을 입력받은 값으로 변경 후 
+			loginMember.setMemberName(inputName);
+			loginMember.setMemberAge(inputAge);
+			loginMember.setRegion(inputRegion);
+
+			//    1 반환			
+			return 1;
+			
 		}else {
-			// 2) 로그인이 되어있다면, 수정할 정보 입력받은 후 저장
-			System.out.print("수정할 이름: ");
-			String inputName = sc.next();
+			// 5) 비밀번호가 일치하지 않는 경우 0 반환
+			return 0;
+		}
+		
+	}
+	
+	// 회원 검색(지역) 메서드
+	public void searchRegion() {
+		System.out.println("\n======== 회원 검색(지역) ========");
+		
+		System.out.print("검색할 지역을 입력하세요 : ");
+		String inputRegion = sc.next();
+		
+		boolean flag = false; // 검색 결과 신호용 변수
+		
+		// 1) memberArr 배열의 모든 요소 순차 접근
+		
+		for(int i = 0; i < memberArr.length; i++) {
+			// 2) memberArr[i] 요소가 null인 경우 반복 종료
+			if(memberArr[i] == null) break;
 			
-			System.out.print("수정할 나이: ");
-			int inputAge = sc.nextInt();
-			
-			System.out.print("수정할 지역: ");
-			String inputRegion = sc.next();
-			
-			// 현재 저장된 비밀번호와 입력받는 비밀번호가 일치할 경우 수정된 결과 저장
-			System.out.print("현재 비밀번호를 입력해주세요 : ");
-			String memberPw = sc.next(); 
-			
-			if(loginMember.getMemberPw().equals(memberPw)) {
-				loginMember.setMemberName(inputName);
-				loginMember.setMemberAge(inputAge);
-				loginMember.setRegion(inputRegion);
-				
-				// 입력받은 비밀번호가 현재 비밀 번호와 일치하는 경우 1 반환
-				return 1;
-			}else {
-				// 일치하지 않는 경우 0 반환
-				return 0;
+			// 3) memberArr[i] 요소의 저장된 지역(getRegion())이
+			//    입력받은 지역과 (inputRegion)과 같을 경우
+			//    회원 아이디 / 이름 출력
+			else if(memberArr[i].getRegion().equals(inputRegion)) {
+				System.out.printf("아이디: %s, 이름 : %s\n",
+									memberArr[i].getMemberId(),
+									memberArr[i].getMemberName());
+				flag = true;
 			}
 		}
+		
+		// 4) 검색 결과가 없을 경우 "일치하는 검색결과가 없습니다." 출력
+		if(!flag) {
+			System.out.println("일치하는 검색결과가 없습니다.");
+		}
+		
 	}
 }

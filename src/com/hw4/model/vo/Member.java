@@ -12,7 +12,6 @@ public class Member {
 	public Member() {}
 
 	public Member(String userId, String userPwd, String name, int age, char gender, String email) {
-		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.name = name;

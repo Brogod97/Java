@@ -16,7 +16,6 @@ public class Employee {
 	public Employee() {}
 
 	public Employee(int empNo, String empName, int age, char gender, String phone, String address) {
-		super();
 		this.empNo = empNo;
 		this.empName = empName;
 		this.age = age;
@@ -27,7 +26,6 @@ public class Employee {
 
 	public Employee(int empNo, String empName, String dept, String job, int age, char gender, int salary,
 			double bonusPoint, String phone, String address) {
-		super();
 		this.empNo = empNo;
 		this.empName = empName;
 		this.dept = dept;

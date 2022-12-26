@@ -245,7 +245,7 @@ public class PolyService {
 		System.out.println( c1.toString() );
 		// String edu.kh.poly.model.vo.Car.toString()
 		// Car 참조변수 c1을 이용해서
-		// Car 객체에 잇는 오버라이딩 된 toString() 메소드를 호출
+		// Car 객체에 있는 오버라이딩 된 toString() 메소드를 호출
 		
 		// ** 다형성 적용시 바인딩 **
 		Car c2 = new Spark("경차 엔진", "휘발유", 4, 0.5);
@@ -279,6 +279,7 @@ public class PolyService {
 		// - 업캐스팅 상태의 참조 변수를 
 		//   별도의 다운캐스팅 없이
 		// 	 자식의 오버라이딩 된 메소드를 수행할 수 있다.
+
 	}
 	
 }

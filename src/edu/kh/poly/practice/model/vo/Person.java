@@ -31,7 +31,7 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "이름 : " + name + ", 나이 : " + age;
+		return name + " / " + age;
 	}
 	
 }

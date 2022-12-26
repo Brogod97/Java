@@ -20,7 +20,7 @@ public class Employee extends Person {
 
 	@Override
 	public String toString() {
-		return super.toString() + ", 회사명 : " + company;
+		return super.toString() + " / " + company;
 	}
 	
 	

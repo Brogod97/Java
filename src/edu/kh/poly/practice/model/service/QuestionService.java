@@ -9,7 +9,14 @@ import edu.kh.poly.practice.model.vo.Student;
 public class QuestionService implements QuestionInterface {
 	Scanner sc = new Scanner(System.in);
 	
-	Person[] pArr = new Person[10];
+	Person[] pArr = new Person[10]; // 임의 지정 크기
+	
+	{
+		pArr[0] = new Student("김철수", 15, 3, 2);
+		pArr[1] = new Student("김영희", 20, 2, 5);
+		pArr[2] = new Employee("주호민", 45, "수자앤펄");
+		pArr[3] = new Employee("침착맨", 40, "침투부");
+	}
 	
 	@Override
 	public void displayMenu() {
@@ -35,10 +42,10 @@ public class QuestionService implements QuestionInterface {
 			case 1 : selectAll(); break;
 			case 2 : selectStudent(); break;
 			case 3 : selectEmployee(); break;
-			case 4 : System.out.println( searchName().toString() );; break;
+			case 4 : System.out.println( searchName().toString() ); break;
 			case 5 : System.out.println(printName()); break;
 			case 6 : printAge(); break;
-			case 7 : deletePerson(); break;
+			case 7 : System.out.println(deletePerson().toString() + " 정보가 삭제되었습니다."); break;
 			case 8 : insertPerson(); break;
 			case 0 : System.out.println("프로그램을 종료합니다."); break;
 			}
@@ -47,10 +54,12 @@ public class QuestionService implements QuestionInterface {
 	
 	@Override
 	public void insertPerson() {
-		System.out.print("\n어떤 타입을 생성하시겠습니까?"
-				+ "\n1. 학생"
-				+ "\n2. 직원"
-				+ "\n명령 입력 >>> ");
+		System.out.println("======학생 or 직원등록======");
+		
+		System.out.print("어떤 타입을 생성하시겠습니까?"
+					+ "\n1. 학생"
+					+ "\n2. 직원"
+					+ "\n명령 입력 >>> ");
 		int inputNum = sc.nextInt();
 		sc.nextLine();
 		
@@ -76,7 +85,6 @@ public class QuestionService implements QuestionInterface {
 			
 			for(int i = 0; i < pArr.length; i++) {
 				if(pArr[i] == null) {
-					
 					pArr[i] = new Student(inputName, inputAge, inputGrade, inputClassRoom);
 					break;
 				}
@@ -93,12 +101,13 @@ public class QuestionService implements QuestionInterface {
 			}
 		}
 	}
+	
 	@Override
 	public void selectAll() {
 		System.out.println("======모든 요소 출력======");
 		
 		for(int i = 0; i < pArr.length; i++) {
-			if(pArr[0] == null) {
+			if(pArr[0] == null) { // pArr[0] 이 null이라는 건, 나머지 10개도 null이라는 것
 				System.out.println("배열요소에 저장된 정보가 없습니다.");
 				break;
 			}
@@ -110,6 +119,7 @@ public class QuestionService implements QuestionInterface {
 			System.out.println(pArr[i].toString()); // Person - toString 임의로 오버라이딩
 		}
 	}
+	
 	@Override
 	public void selectStudent() {
 		System.out.println("======학생 정보만 출력======");
@@ -120,6 +130,7 @@ public class QuestionService implements QuestionInterface {
 			}
 		}
 	}
+	
 	@Override
 	public void selectEmployee() {
 		System.out.println("======직원 정보만 출력======");
@@ -130,6 +141,7 @@ public class QuestionService implements QuestionInterface {
 			}
 		}
 	}
+	
 	@Override
 	public Person searchName() {
 		System.out.println("======정보 찾기(이름)======");
@@ -144,21 +156,23 @@ public class QuestionService implements QuestionInterface {
 			}
 			index++;
 		}
-		return pArr[index]; // 여기도 굳이 Person을 반환하는 이유가??
+		return pArr[index];
 		
 	}
+	
 	@Override
-	public String printName() {
+	public String printName() { // 미완성, 미해결
 		System.out.println("======모든 사람의 이름 출력======");
 		
-		String[] strArr = new String[pArr.length];
+		String str = ""; // 초기화
+		
 		for(int i = 0; i < pArr.length; i++) {
 			if(pArr[i] != null) {
-				strArr[i] = pArr[i].getName();
+				str += pArr[i].getName() + ", "; // 마지막 콤마 어떻게 출력 안하지?
 			}
 		}
 		
-		return strArr.toString(); // 이름 어떻게 출력???
+		return str;
 	}
 	@Override
 	public void printAge() {
@@ -188,17 +202,42 @@ public class QuestionService implements QuestionInterface {
 	}
 	
 	@Override
-	public Person deletePerson() { 
+	public Person deletePerson() { // 미완성, 미해결
 		System.out.println("======입력 인덱스 삭제======");
 		
 		System.out.print("삭제할 인덱스를 입력해주세요 : ");
 		int index = sc.nextInt();
 		
+		Person[] newArr = new Person[pArr.length];
+		Person deletedPerson = null;
+		
+		// 반복이 index번째의 배열일 경우 빼고, 그 외에는 새로운 배열에 저장
 		for(int i = 0; i < pArr.length; i++) {
-			pArr[index] = null;
+			// i가 0일 때
+			// pArr[0]을 삭제하고, 그 뒤부터 newArr[0]부터 저장
+			if(index == 0) {
+				deletedPerson = pArr[i];
+				i--;
+			}else {
+				newArr[i] = pArr[i];
+			}
+			
+			// i가 0 이상일 때
+			// newArr[0]부터 저장하는데, index 번째가 오면 스킵하고, i--
+			if(index >= 1) {
+				if(i == index) {
+					deletedPerson = pArr[i];
+					continue;
+				}
+				
+				newArr[i] = pArr[i];
+			}
 		}
 		
-		return pArr[index]; // 왜 Person을 반환하지????
+		pArr = newArr;
+		
+		// 삭제한 인덱스의 배열 요소 반환
+		return deletedPerson; 
 	}
 	@Override
 	public void addPerson() {

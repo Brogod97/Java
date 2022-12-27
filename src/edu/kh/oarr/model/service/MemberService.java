@@ -54,7 +54,7 @@ public class MemberService {
 				
 				break;
 			case 5: break;
-			case 0: System.out.println("프로그램을 종료합니다."); break;
+			case 0: System.out.println("프로그램을 종료합니k다."); break;
 			default : System.out.println("\n잘못 입력하셨습니다."); 
 			}
 			

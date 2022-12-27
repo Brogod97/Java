@@ -42,19 +42,25 @@ public class MemberService {
 			case 2: System.out.println( login() ); break;
 			case 3: System.out.println( selectMember() ); break;
 			case 4: 
-				int result = updateMember();
+				
+				int result = updateMember(); // -1, 0, 1
 				
 				if(result == -1) {
-					System.out.println("로그인 해주시기 바랍니다");
-				}else if(result == 1) {
-					System.out.println("회원 정보 수정이 완료되었습니다.");
-				}else {
+					System.out.println("로그인 후 이용해주시기 바랍니다.");
+				}else if(result == 0) {
 					System.out.println("회원 정보 수정 실패 (비밀번호 불일치)");
+				}else {
+					System.out.println("회원 정보 수정이 완료되었습니다.");
 				}
-				
 				break;
+<<<<<<< HEAD
 			case 5: break;
 			case 0: System.out.println("프로그램을 종료합니k다."); break;
+=======
+				
+			case 5: searchRegion(); break;
+			case 0: System.out.println("\n프로그램을 종료합니다."); break;
+>>>>>>> 4f5df5179280cca69d80845685dd3a0cf3bd6304
 			default : System.out.println("\n잘못 입력하셨습니다."); 
 			}
 			

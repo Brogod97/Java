@@ -317,6 +317,8 @@ public class BookService {
 			
 			writer.write(str);
 			
+			System.out.println("내보내기 성공");
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -327,7 +329,7 @@ public class BookService {
 			}
 		}
 		
-		System.out.println("내보내기 성공");
+		
 	}
 	
 }

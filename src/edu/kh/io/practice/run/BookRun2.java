@@ -8,8 +8,6 @@ public class BookRun2 {
 		BookService2 bs = new BookService2();
 		
 		bs.displayMenu();
-		
-		bs.createBook(); // git test
 	}
 
 }

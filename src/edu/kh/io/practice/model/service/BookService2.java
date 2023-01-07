@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -119,16 +120,13 @@ public class BookService2 {
 	public void selectBook() {
 		System.out.println("****** 도서 조회 ******");
 		
-		String result = "";
-		
 		if(list.isEmpty()) { // 비었으면 true
-			result = "도서 목록이 존재하지 않습니다";
+			System.out.println("도서 목록이 존재하지 않습니다");
 			return;
 		}
 		
 		for(Map<String, Object> map : list) {
-			result = map.get("title") + " " + map.get("author") + " " + comma((int)map.get("price")) + "원 " + map.get("publisher");
-			System.out.println(result);
+			System.out.println(map.get("title") + " " + map.get("author") + " " + comma((int)map.get("price")) + "원 " + map.get("publisher"));
 		} 
 		
 	}
@@ -219,6 +217,7 @@ public class BookService2 {
 		}
 		
 		if(favList.add(list.get(index))) {
+			favList.sort(Comparator.comparing((Map<String, Object> map) -> (Integer) map.get("registerNumber")));
 			return "즐겨찾기 저장 성공";
 		}else {
 			return "즐겨찾기 저장 실패";
